@@ -1,4 +1,4 @@
-# Ign-Compu-FI-UNAM
+# Ing-Compu-FI-UNAM
 
 # Bienvenidos uwu
 No sé si alguien vaya a ver este repo, pero si sí, pienso acomodarlo en carpetas por semestre. En cada carpeta habrá otras carpetas con el nombre de las materias que metí en ese semestre. 
