@@ -5,7 +5,7 @@ Este semestre fue rarísimo
 
 Mucho alcohol, muchas migajas
 
-Clases en línea y evaluaciones virtuales (☠️)
+Clases en línea y evaluaciones presenciales (☠️)
 
 Se remontó todo en las últimas dos semanas
 
@@ -16,7 +16,7 @@ Final de proba con 10
 ## 📂 Contenido del Repositorio
 En esta carpeta encontrarás:
 - `Cálculo Vectorial`: De chocolate, jaramillo es trasatlántico. "Espero siempre tengan a la mano un chatbot que los va a reemplazar"
-- `Probabilidad`: Fokin saldra alvarado, iba en putiza, no se le entendía, elal sola se hacía bolas y aún así le cagaba que usáramos IA. Me la peló en el segundo final
+- `Probabilidad`: Fokin saldra alvarado, iba en putiza, no se le entendía anda, ella sola se hacía bolas y aún así le cagaba que usáramos IA. Me la peló en el segundo final
 - `Ecuaciones Diferenciales`: TE QUIERO MUCHO AVEM. 
 - `Matemáticas avanzadas`: Casi la dejo morir, pero me tomé como reto speedrunear la materia y la terminé salvando con esos 3 exámenes en las últimas dos semanas. un cabrón el edgar alí
 - `Estructura de Datos y Algoritmos II`: Tovar, tovar, tovar. Me cae muy bien como persona, como profesor es un cabrón. "Todos al sambuca"
