@@ -1,34 +1,65 @@
 #**Tarea**: Programa que convierta números de cualquiera base a otra base cualquiera xd yy palique complemento a 2(?) <---- solo cuando es binario?
-#ruta absoluta: cd downloads/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
-import math
+#ruta absoluta: cd downloads/ing_compu/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
+letrasxd = ('A', 'B', '', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
+#Convertir parte entera a decimal
+def entDec(num, base):
+    total = 0
+    alreves = num[::-1]
+    for i in range(len(num)):
+        total += int(alreves[i]) * base**i
+    return total
+
+def decDiez(num, base):
+    total = 0
+    for i in range(len(num)):
+        potencia = -(i + 1)
+        #print(f"Num: {num[i]}, base: {base}, i: {i}, total: {total}, suma: {int(num[i]) * base**i}")
+        total += int(num[i]) * base**potencia
+    return total
+    
+    
+
+#Guardar número a convertir
 numAConv = input("Ingresa el numero a covertir: ")
 
 try:
-    baseNumAConv = int(input("Ingresa la base de ese número: "))
-except:
+    baseOri = int(input("Ingresa la base de ese número: "))
+except ValueError:
     print("Ingresa una base válida, por favor")
+
+for i in range(len(numAConv)):
+    if numAConv[i] != '.':
+        if int(numAConv[i]) > baseOri - 1:
+            numAConv = input("El número no es válido en esa base, ingresa otro: ")
+        
 
 try:
     baseConv = int(input("Ingresa la base a la que quieres convertir el número: "))
 except:
     print("Ingresa una base válida, por favor")
 
-print(f'Ingresaste el numero: {numAConv} en base {baseNumAConv} y quieres convertirlo a base {baseConv}')
+tam = len(numAConv)
+entero = ""
+decimal = ""
+total = ""
 
-if baseNumAConv != 10:
-    tam = len(numAConv)
-    ent = ""
-    dec = ""
-    alreves = numAConv[::-1]
-    for i in range(tam):
-        agregar = ""
-        print("\n")
-        print(i, numAConv[i], baseNumAConv**i)
-        agregar = int(alreves[i]) * baseNumAConv**i
-        ent += str(agregar)
-        print()
-    print(ent)
+#Separando entero de decimal
+posPunto = numAConv.find('.')
+if posPunto != -1:
+    entero = numAConv[:posPunto]
+    decimal = numAConv[posPunto + 1:]
+    total += str(entDec(entero, baseOri) + decDiez(decimal, baseOri))
+else:
+    entero = numAConv
+    total += str(entDec(entero, baseOri))
+
+
+
+if baseConv == 10:
+    print(f"El numero convertido a base 10 es: {total}")
+else:
+    print("ahorita vemos")
 
 ### Ideas ideas ideas
 #- en python
