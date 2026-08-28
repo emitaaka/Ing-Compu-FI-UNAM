@@ -1,6 +1,6 @@
 #**Tarea**: Programa que convierta números de cualquiera base a otra base cualquiera xd yy palique complemento a 2(?) <---- solo cuando es binario?
 #ruta absoluta: cd downloads/ing_compu/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
-letrasxd = ('A', 'B', '', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+letrasxd = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
 #Convertir parte entera a decimal
 def entDec(num, base):
@@ -17,8 +17,12 @@ def decDiez(num, base):
         #print(f"Num: {num[i]}, base: {base}, i: {i}, total: {total}, suma: {int(num[i]) * base**i}")
         total += int(num[i]) * base**potencia
     return total
-    
-    
+
+def letrasANumeros(letra):
+    if letra in letrasxd:
+        return letrasxd.index(letra) + 10
+    else:
+        return -1
 
 #Guardar número a convertir
 numAConv = input("Ingresa el numero a covertir: ")
@@ -28,18 +32,28 @@ try:
 except ValueError:
     print("Ingresa una base válida, por favor")
 
+nuevoNumAConv = list(numAConv)
 for i in range(len(numAConv)):
     if numAConv[i] != '.':
-        if int(numAConv[i]) > baseOri - 1:
-            numAConv = input("El número no es válido en esa base, ingresa otro: ")
+        caracter = numAConv[i].upper()
+        if caracter in letrasxd:
+            nuevoNumAConv[i] = letrasANumeros(caracter)
+        elif caracter.isdigit():
+            nuevoNumAConv[i] = int(caracter)
+        else:
+            print(f'{caracter} no es un dígito válido.')
+            break
+        if int(nuevoNumAConv[i]) > baseOri - 1:
+           print(f"{caracter} no es un dígito válido.")
         
-
 try:
     baseConv = int(input("Ingresa la base a la que quieres convertir el número: "))
 except:
     print("Ingresa una base válida, por favor")
 
-tam = len(numAConv)
+print(nuevoNumAConv)
+
+tam = len(nuevoNumAConv)
 entero = ""
 decimal = ""
 total = ""
@@ -47,11 +61,11 @@ total = ""
 #Separando entero de decimal
 posPunto = numAConv.find('.')
 if posPunto != -1:
-    entero = numAConv[:posPunto]
-    decimal = numAConv[posPunto + 1:]
+    entero = nuevoNumAConv[:posPunto]
+    decimal = nuevoNumAConv[posPunto + 1:]
     total += str(entDec(entero, baseOri) + decDiez(decimal, baseOri))
 else:
-    entero = numAConv
+    entero = nuevoNumAConv
     total += str(entDec(entero, baseOri))
 
 
