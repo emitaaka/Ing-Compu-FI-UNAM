@@ -18,12 +18,46 @@ def decDiez(num, base):
         total += int(num[i]) * base**potencia
     return total
 
+#Convierte cualquier letra de letrasxd en un valor decimal
 def letrasANumeros(letra):
     if letra in letrasxd:
         return letrasxd.index(letra) + 10
     else:
         return -1
 
+def numerosALetras(numero):
+    if numero - 1 < 37:
+        return letrasxd[numero - 10]
+    else: 
+        print("no puede entrar aquí el if, no? jaajaj")
+
+def decEnteroACualquier(num, base):
+    valor = ""
+    while num > 0:
+        residuo = num%base
+        num = num//base
+        if residuo > 9:
+            valor += numerosALetras(residuo)
+        else:
+            valor += str(residuo)
+    return valor[::-1]
+
+def decFraccionACualquier(num, base):
+    num = num/ 10 ** len(str(num))
+    valor = ""
+    cont = 0
+    while cont < 5:
+        if num >= 1:
+            num = (num % 1) * base
+        else: 
+            num = num * base
+        ent = int(num//1)
+        if ent > 9:
+            valor += numerosALetras(ent)
+        else:
+            valor += str(ent)
+        cont += 1
+    return valor
 #Guardar número a convertir
 numAConv = input("Ingresa el numero a covertir: ")
 
@@ -51,8 +85,6 @@ try:
 except:
     print("Ingresa una base válida, por favor")
 
-print(nuevoNumAConv)
-
 tam = len(nuevoNumAConv)
 entero = ""
 decimal = ""
@@ -68,12 +100,20 @@ else:
     entero = nuevoNumAConv
     total += str(entDec(entero, baseOri))
 
-
-
 if baseConv == 10:
     print(f"El numero convertido a base 10 es: {total}")
 else:
-    print("ahorita vemos")
+    posPunto2 = total.find(".")
+    aConv = total
+    if posPunto2 != -1:
+        entero = int(aConv[:posPunto2])
+        decimal = int(aConv[posPunto2 + 1:])
+        total = str(decEnteroACualquier(entero, baseConv)) + '.' + (decFraccionACualquier(decimal, baseConv))
+        print(f'El número {numAConv} convertido a base {baseConv} es: {total}')
+    else:
+        entero = int(aConv)
+        total = decEnteroACualquier(entero, baseConv)
+        print(f'El número {numAConv} convertido a base {baseConv} es: {total}')
 
 ### Ideas ideas ideas
 #- en python
