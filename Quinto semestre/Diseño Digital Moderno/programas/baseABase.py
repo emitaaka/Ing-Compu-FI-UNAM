@@ -1,6 +1,6 @@
 #**Tarea**: Programa que convierta números de cualquiera base a otra base cualquiera xd yy palique complemento a 2(?) <---- solo cuando es binario?
 #ruta absoluta: cd downloads/ing_compu/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
-letrasxd = ('A', 'B', '', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+letrasxd = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
 #Convertir parte entera a base 10
 def entDec(num, base):
@@ -17,9 +17,47 @@ def decDiez(num, base):
         potencia = -(i + 1)
         total += int(num[i]) * base**potencia
     return total
-    
-    
 
+#Convierte cualquier letra de letrasxd en un valor decimal
+def letrasANumeros(letra):
+    if letra in letrasxd:
+        return letrasxd.index(letra) + 10
+    else:
+        return -1
+
+def numerosALetras(numero):
+    if numero - 1 < 37:
+        return letrasxd[numero - 10]
+    else: 
+        print("no puede entrar aquí el if, no? jaajaj")
+
+def decEnteroACualquier(num, base):
+    valor = ""
+    while num > 0:
+        residuo = num%base
+        num = num//base
+        if residuo > 9:
+            valor += numerosALetras(residuo)
+        else:
+            valor += str(residuo)
+    return valor[::-1]
+
+def decFraccionACualquier(num, base):
+    num = num/ 10 ** len(str(num))
+    valor = ""
+    cont = 0
+    while cont < 5:
+        if num >= 1:
+            num = (num % 1) * base
+        else: 
+            num = num * base
+        ent = int(num//1)
+        if ent > 9:
+            valor += numerosALetras(ent)
+        else:
+            valor += str(ent)
+        cont += 1
+    return valor
 #Guardar número a convertir
 numAConv = input("Ingresa el numero a covertir: ")
 
@@ -29,19 +67,35 @@ try:
 except ValueError:
     baseOri = int(input("Ingresa una base válida, por favor: "))
 
+nuevoNumAConv = list(numAConv)
 for i in range(len(numAConv)):
     if numAConv[i] != '.':
-        if int(numAConv[i]) > baseOri - 1:
-            numAConv = input("El número no es válido en esa base, ingresa otro: ")
+        caracter = numAConv[i].upper()
+        if caracter in letrasxd:
+            nuevoNumAConv[i] = letrasANumeros(caracter)
+        elif caracter.isdigit():
+            nuevoNumAConv[i] = int(caracter)
+        else:
+            print(f'{caracter} no es un dígito válido.')
+            break
+        if int(nuevoNumAConv[i]) > baseOri - 1:
+           print(f"{caracter} no es un dígito válido.")
         
+<<<<<<< HEAD
 #Validamos la segunda base
+=======
+>>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 try:
     baseConv = int(input("Ingresa la base a la que quieres convertir el número: "))
 except:
     print("Ingresa una base válida, por favor")
 
+<<<<<<< HEAD
 
 tam = len(numAConv)
+=======
+tam = len(nuevoNumAConv)
+>>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 entero = ""
 decimal = ""
 total = ""
@@ -49,18 +103,31 @@ total = ""
 #Separando entero de decimal y convirtiendo la base
 posPunto = numAConv.find('.')
 if posPunto != -1:
-    entero = numAConv[:posPunto]
-    decimal = numAConv[posPunto + 1:]
+    entero = nuevoNumAConv[:posPunto]
+    decimal = nuevoNumAConv[posPunto + 1:]
     total += str(entDec(entero, baseOri) + decDiez(decimal, baseOri))
 else:
-    entero = numAConv
+    entero = nuevoNumAConv
     total += str(entDec(entero, baseOri))
 
+<<<<<<< HEAD
 #Si la base a convertir es 10, se imprime, sino, entra en el else
+=======
+>>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 if baseConv == 10:
     print(f"El numero convertido a base 10 es: {total}")
 else:
-    print("ahorita vemos")
+    posPunto2 = total.find(".")
+    aConv = total
+    if posPunto2 != -1:
+        entero = int(aConv[:posPunto2])
+        decimal = int(aConv[posPunto2 + 1:])
+        total = str(decEnteroACualquier(entero, baseConv)) + '.' + (decFraccionACualquier(decimal, baseConv))
+        print(f'El número {numAConv} convertido a base {baseConv} es: {total}')
+    else:
+        entero = int(aConv)
+        total = decEnteroACualquier(entero, baseConv)
+        print(f'El número {numAConv} convertido a base {baseConv} es: {total}')
 
 ### Ideas ideas ideas
 #- en python
