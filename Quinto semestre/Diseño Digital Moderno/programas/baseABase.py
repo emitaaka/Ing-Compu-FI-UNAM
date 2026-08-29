@@ -2,7 +2,7 @@
 #ruta absoluta: cd downloads/ing_compu/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
 letrasxd = ('A', 'B', '', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
-#Convertir parte entera a decimal
+#Convertir parte entera a base 10
 def entDec(num, base):
     total = 0
     alreves = num[::-1]
@@ -10,11 +10,11 @@ def entDec(num, base):
         total += int(alreves[i]) * base**i
     return total
 
+#Convertir parte decimal (depsués del punto) a base 10
 def decDiez(num, base):
     total = 0
     for i in range(len(num)):
         potencia = -(i + 1)
-        #print(f"Num: {num[i]}, base: {base}, i: {i}, total: {total}, suma: {int(num[i]) * base**i}")
         total += int(num[i]) * base**potencia
     return total
     
@@ -23,28 +23,30 @@ def decDiez(num, base):
 #Guardar número a convertir
 numAConv = input("Ingresa el numero a covertir: ")
 
+#Validamos que la base sea un número entero (entero?)
 try:
     baseOri = int(input("Ingresa la base de ese número: "))
 except ValueError:
-    print("Ingresa una base válida, por favor")
+    baseOri = int(input("Ingresa una base válida, por favor: "))
 
 for i in range(len(numAConv)):
     if numAConv[i] != '.':
         if int(numAConv[i]) > baseOri - 1:
             numAConv = input("El número no es válido en esa base, ingresa otro: ")
         
-
+#Validamos la segunda base
 try:
     baseConv = int(input("Ingresa la base a la que quieres convertir el número: "))
 except:
     print("Ingresa una base válida, por favor")
+
 
 tam = len(numAConv)
 entero = ""
 decimal = ""
 total = ""
 
-#Separando entero de decimal
+#Separando entero de decimal y convirtiendo la base
 posPunto = numAConv.find('.')
 if posPunto != -1:
     entero = numAConv[:posPunto]
@@ -54,8 +56,7 @@ else:
     entero = numAConv
     total += str(entDec(entero, baseOri))
 
-
-
+#Si la base a convertir es 10, se imprime, sino, entra en el else
 if baseConv == 10:
     print(f"El numero convertido a base 10 es: {total}")
 else:
