@@ -81,21 +81,12 @@ for i in range(len(numAConv)):
         if int(nuevoNumAConv[i]) > baseOri - 1:
            print(f"{caracter} no es un dígito válido.")
         
-<<<<<<< HEAD
-#Validamos la segunda base
-=======
->>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 try:
     baseConv = int(input("Ingresa la base a la que quieres convertir el número: "))
 except:
     print("Ingresa una base válida, por favor")
 
-<<<<<<< HEAD
-
-tam = len(numAConv)
-=======
 tam = len(nuevoNumAConv)
->>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 entero = ""
 decimal = ""
 total = ""
@@ -110,10 +101,6 @@ else:
     entero = nuevoNumAConv
     total += str(entDec(entero, baseOri))
 
-<<<<<<< HEAD
-#Si la base a convertir es 10, se imprime, sino, entra en el else
-=======
->>>>>>> 7efff14eb0e6092313e179b478a2d501c8c5edda
 if baseConv == 10:
     print(f"El numero convertido a base 10 es: {total}")
 else:
