@@ -2,7 +2,7 @@
 #ruta absoluta: cd downloads/ing-compu-fi-unam/quinto semestre/diseño digital moderno/programas
 letrasxd = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
 
-#Convertir parte entera a base 10
+# Convertir parte entera a base 10
 def entDec(num, base):
     total = 0
     alreves = num[::-1]
@@ -10,7 +10,7 @@ def entDec(num, base):
         total += int(alreves[i]) * base**i
     return total
 
-#Convertir parte decimal (depsués del punto) a base 10
+# Convertir parte decimal (después del punto) a base 10
 def decDiez(num, base):
     total = 0
     for i in range(len(num)):
@@ -18,7 +18,7 @@ def decDiez(num, base):
         total += int(num[i]) * base**potencia
     return total
 
-#Convierte cualquier letra de letrasxd en un valor decimal
+# Convierte cualquier letra de letrasxd en un valor decimal
 def letrasANumeros(letra):
     if letra in letrasxd:
         return letrasxd.index(letra) + 10
@@ -34,8 +34,8 @@ def numerosALetras(numero):
 def decEnteroACualquier(num, base):
     valor = ""
     while num > 0:
-        residuo = num%base
-        num = num//base
+        residuo = num % base
+        num = num // base
         if residuo > 9:
             valor += numerosALetras(residuo)
         else:
@@ -43,7 +43,7 @@ def decEnteroACualquier(num, base):
     return valor[::-1]
 
 def decFraccionACualquier(num, base):
-    num = num/ 10 ** len(str(num))
+    num = num / 10 ** len(str(num))
     valor = ""
     cont = 0
     while cont < 5:
@@ -51,7 +51,7 @@ def decFraccionACualquier(num, base):
             num = (num % 1) * base
         else: 
             num = num * base
-        ent = int(num//1)
+        ent = int(num // 1)
         if ent > 9:
             valor += numerosALetras(ent)
         else:
@@ -70,33 +70,37 @@ def validarBinario(binario):
 
 def tienePunto(numero):
     punto = numero.find('.')
-
     ent = ""
     dec = ""
-
     if punto != -1:
         ent += numero[:punto]
         dec += numero[punto + 1:]
     else:
         ent = numero
-
     return ent, dec
+
+def bin_a_signed_dec(b_str):
+    if b_str[0] == '0':
+        return int(b_str[1:], 2)
+    else:
+        # Calcular complemento a 2 para obtener el valor negativo real
+        invertido = "".join(['1' if bit == '0' else '0' for bit in b_str[1:]])
+        val = int(invertido, 2) + 1
+        return -val
 
 opc = 0
 
 while opc != 3:
     print("\nBienvenido al conversor de bases, ¿qué deseas hacer?")
     print("1. Convertir un número de cualquier base a cualquier base.")
-    print("2. Sumar (o restar) números (solo en binario).")
+    print("2. Sumar números binarios (con Complemento a 2).")
     print("3. Salir")
     opc = int(input())
 
     if opc == 1:
         print(f'Elegiste la opción {opc}: Convertir números.')
-        #Guardar número a convertir
-        numAConv = input("Ingresa el numero a covertir: ")
+        numAConv = input("Ingresa el numero a convertir: ")
 
-        #Validamos que la base sea un número entero (entero?)
         try:
             baseOri = int(input("Ingresa la base de ese número: "))
         except ValueError:
@@ -121,12 +125,10 @@ while opc != 3:
         except:
             print("Ingresa una base válida, por favor")
 
-        tam = len(nuevoNumAConv)
         entero = ""
         decimal = ""
         total = ""
 
-        #Separando entero de decimal y convirtiendo la base
         posPunto = numAConv.find('.')
         if posPunto != -1:
             entero = nuevoNumAConv[:posPunto]
@@ -150,47 +152,45 @@ while opc != 3:
                 entero = int(aConv)
                 total = decEnteroACualquier(entero, baseConv)
                 print(f'El número {numAConv} convertido a base {baseConv} es: {total}')
+
     elif opc == 2:
-        print(f'Elegiste la opción {opc}: Suma de números binarios.\nTen en cuenta que el bit más significativo será considerado el bit de signo.\n')
+        print(f'Elegiste la opción {opc}: Suma de números binarios con signo.\n')
 
         binario1 = input("Ingresa el primer número en binario: ")
         binario2 = input("Ingresa el segundo número en binario: ")
 
-        entBinario1, decBinario1 = tienePunto(binario1)
-        entBinario2, decBinario2 = tienePunto(binario2)
+        bsm1 = binario1[0]
+        bsm2 = binario2[0]
 
         lenBin1 = len(binario1)
         lenBin2 = len(binario2)
 
+        # Igualar longitudes aplicando extensión de signo
         if lenBin1 != lenBin2:
-            print("los numeros son de diferente longitud, ahorita lo arreglamos")
-            dif = lenBin1 - lenBin2
-            ceros = ""
-            if dif < 0:
-                dif *= -1
-            for i in range(dif):
-                ceros += "0"
+            print("Los números son de diferente longitud, ajustando bits de signo...")
+            dif = abs(lenBin1 - lenBin2)
             if lenBin1 < lenBin2:
-                temp = binario1[1:]
-                binario1 = binario1[:1] + ceros + temp
-                print(f"actualizamos binario1 y quedó así: {binario1}, temp vale {temp} y ceros vale {ceros}")
+                ext = '1' if bsm1 == '1' else '0'
+                binario1 = binario1[0] + (ext * dif) + binario1[1:]
             else: 
-                temp = binario2[1:]
-                binario2 = binario2[:1] + ceros + temp
-                print(f"actualizamos binario2 y quedó así: {binario2}, temp vale {temp} y ceros vale {ceros}")
+                ext = '1' if bsm2 == '1' else '0'
+                binario2 = binario2[0] + (ext * dif) + binario2[1:]
+            print(f"Binario 1 ajustado: {binario1}")
+            print(f"Binario 2 ajustado: {binario2}")
 
-        if binario2[0] == '1':
-            print("es negativo :D")
-            for i in range(len(binario2) - 1, 0, -1):
-                print(f'{binario2[i]}')
+        # Procesar y sumar usando Complemento a 2
+        dec1 = bin_a_signed_dec(binario1)
+        dec2 = bin_a_signed_dec(binario2)
+        resultado_decimal = dec1 + dec2
+
+        print(f"Valor decimal de Binario 1: {dec1}")
+        print(f"Valor decimal de Binario 2: {dec2}")
+        print(f"Resultado de la suma en decimal: {resultado_decimal}")
 
     elif opc == 3:
-        print("Adiós!")
+        print("¡Adiós!")
     else:
         print("Ingresa un número válido por favor")
-
-
-
 
 ### Ideas ideas ideas
 #- en python
@@ -204,10 +204,3 @@ while opc != 3:
 #- para la parte decimal, solo añade los números y ya queda en orden
 #- validar que sí sean números los que ingrese el usuario
 #- validar que el número sea válido en la base
-
-
-#IP 132.248.67.26 (cambia esta)
-#132.248.204.1
-#132.248.10.2
-#132.248.67.254
-#mascaras 255*3
