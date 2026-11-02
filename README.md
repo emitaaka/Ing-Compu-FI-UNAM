@@ -12,7 +12,7 @@ Más que nada es para tener un registro de mi trayectoria (claro, dos años desp
   - Cálculo y Geometría Analítica
   - Fundamentos de Física
   - Fundamentos de Programación
-  - Igualdad de Género en Ingeniería
+  - Igualdad de Género en la Ingeniería
   - Química
 2. Segundo semestre
   - Álgebra Lineal
@@ -22,14 +22,14 @@ Más que nada es para tener un registro de mi trayectoria (claro, dos años desp
   - Fundamentos de Física (recurse)
   - Mecánica
   - Redacción y Exposición de Temas de Ingeniería
-3. Tercer Semestre
+3. Tercer semestre
   - Cálculo Vectorial
   - Ecuaciones Diferenciales
   - Estructura de Datos y Algoritmos II
   - Matemáticas Avanzadas
   - Probabilidad
   - Programación Orientada a Objetos
-4. Cuarto Semestre
+4. Cuarto semestre
   - Análisis Numérico
   - Electricidad y Magnetismo
   - Estructuras Discretas
